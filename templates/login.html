@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+
+{% block content %}
+ <div id="login" class="container">
+        <!-- Portfolio Item Heading -->
+        <div class="row">
+            <div class="col-lg-8">
+                <h1 class="page-header">
+                <br />
+                    <small>Login</small>
+                </h1>
+            </div>
+        </div>
+       <div class="row">
+       		<div class="col-lg-8">
+					  <div class="form-group row">
+					    <label for="email_log" class="col-lg-2 col-form-label">Email</label>
+					    <input type="email" id="email_log" class="form-control" aria-describedby="emailHelp">
+					  </div>
+					  
+					  <div class="form-group row">
+					    <label for="pass" class="col-lg-2 col-form-label">Password</label>
+					    <input type="password" id="pass" class="form-control">
+					  </div>
+					
+					<div class="form-group row">
+					  <button id="cancel_btn" class="btn btn-secondary">Cancel</button>
+					  <a href="#" id="login_btn"><button class="btn btn-primary">Submit</button></a>
+					</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block scripts %}
+	<script type="text/javascript">
+		$(function() {
+
+			$('a#login_btn').click(function(){
+				var emailID = $('input[id=email_log]').val();
+				var passID = $('input[id=pass]').val();
+				
+				window.alert("Data Retrieved from form!");
+
+				$.ajax({
+					data: {
+						email: emailID,
+						pass: passID
+					},
+					type: 'POST',
+					url: '/api/login_user'
+				}).done(function(data) {
+					if (data.result == 'logged') {
+						console.log("Success");
+						location.href = '/concept';
+					} else {
+						console.log("big fat error");
+					}
+				});
+
+			});
+
+		});
+	</script>
+{% endblock %}

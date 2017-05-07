@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+
+{% block content %}
+ <div id="search" class="container">
+        <!-- Portfolio Item Heading -->
+        <div class="row">
+            <div class="col-lg-8">
+                <h1 class="page-header">
+                <br />
+                    <small>Search</small>
+                </h1>
+            </div>
+        </div>
+       <div class="row">
+       		<div class="col-lg-8">
+					  <div class="form-group row">
+					    <label for="search_term" class="col-md-4 col-form-label">Enter search term:</label>
+					    <input type="text" id="search_term" class="form-control" aria-describedby="searchHelp">
+					  </div>
+					
+					<div class="form-group row">
+					  <button id="cancel_btn" class="btn btn-secondary">Cancel</button>
+					  <a href="#" id="search_btn"><button class="btn btn-primary">Search</button></a>
+					</div>
+			</div>
+		</div>
+		<div class="row"></div>
+            <div class="row">
+                <div class="col-md-10">
+                		<ul id="search_term"></ul>
+                </div>
+            </div>
+          
+        </div>
+	</div>
+
+{% endblock %}
+
+{% block scripts %}
+	<script type="text/javascript">
+		$(function() {
+
+			$('a#search_btn').click(function(){
+				var search_term = $('input[id=search_term]').val();
+				
+				//window.alert("Data Retrieved from form!");
+
+				$.ajax({
+					data: {
+						search_term: search_term
+					},
+					type: 'POST',
+					url: '/api/search_form'
+				}).done(function(data) {
+					if (data.result) {
+						
+						var data_list = data.result
+						//console.log(data_list)
+						
+						for (var key in data_list) {
+							if (data_list.hasOwnProperty(key)) {
+    							//console.log(key + " -> " + data_list[key]['text']);
+    							$('ul#search_term').prepend("<li>"+data_list[key]['text']+" | <a href='"+data_list[key]['link']+"'>"+data_list[key]['link']+"</li>");
+  							}
+  						}
+					} else {
+						console.log("big fat error");
+					}
+				});
+
+			});
+
+		});
+	</script>
+{% endblock %}
