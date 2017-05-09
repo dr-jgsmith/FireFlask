@@ -96,7 +96,7 @@
             </div>
         </div>
 
-		<div id="footer" class="navbar navbar-fixed-bottom" style="background-color:#FFF">
+		<div id="footer" class="navbar navbar-fixed-bottom" style="background-color:#778899">
             <center>
                 <form class="form-inline" id="emit">
 
@@ -109,15 +109,16 @@
                     </div>
 
                     <div class="row">
-					    <div class="col-md-6">
+					    <div class="col-md-12">
                             <div class="form-group">
 
                                 <button type='submit' class='btn btn-default'>Post Message</button>
-                            </div>
-                            <div class="form-group">
+
                                 <label class="btn btn-default btn-file">Attach a Photo
                                     <input type="file" id="media" name="media" style="display: none;" class="form-control">
                                 </label>
+                                    <input type="hidden" name="latitude" id="latitude" />
+                                    <input type="hidden" name="longitude" id="longitude" />
                             </div>
                         </div>
                     </div>
